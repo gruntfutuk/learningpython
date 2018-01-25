@@ -13,116 +13,134 @@
 # the code to other kinds of points mapping where there may be
 # gaps in the ranges defined.
 #
-# Optionally, print a frequency table of marks and corresponding grades
+# On completion, mark and grade averages and grades are ouput
 #
 # If the user enters a non-numeric, a none whole number, or a number outside
 # of the range of highest and lowest values defined in the grade table, then
 # an error message will be printed and the user will be reprompted.
+#
+# A mark of 0 is assumed to be an excluded mark (not included in frequency table
+# unless it is explicitly included in the grade table)
 
 def main():
-    
-    def initialise():
-        global grades, top, bottom, unclassified, marks, affirmation
-        # grade letters and mark ranges defined in dictionary
-        # where each grade letter key has a tuple value to hold mark range
-        # each tuple should have the highest mark for the grade first
-        # * if there are gaps, then unmatched marks will return unclassified
-        # * if there are overlaps, any of the matching grades could be returned
-        grades = {
-                'A': (100, 90),
-                'B': ( 89, 75),
-                'C': ( 74, 60),
-                'D': ( 59, 50),
-                'E': ( 49, 40),
-                'F': ( 39, 10),
-                'X': (  0,  0)
-                }
-        unclassified = "U (unclassified)"      
-        # find highest and lowest allowable marks for entry
-        # (not assuming we have a 0 - 100 range)
-        top, bottom = highlow(list(grades.values()))
-        marks ={}  # keep track of all marks, so we can provide average
-        affirmation = ['y', 'yes', 'yeh', 'ok', 'x', '1', 'okay', 'go', 'please', 'yup']
-    
-    
-    def highlow(ranges): # return highest and lower marks possible from grade table
-        from operator import itemgetter
-        highest = max(ranges, key=itemgetter(1))[0]
-        lowest = min(ranges, key=itemgetter(1))[1]
-        return highest, lowest
-    
-    
-    def grading(mark, grades):     # find dictionary entry for mark given
-        for gradecheck in grades:
-            rangecheck = grades[gradecheck]
-            if mark in range(rangecheck[1], rangecheck[0]+1):
-                return gradecheck
-        else: # if mark is not in grade table
-            return unclassified
-    
-    
-    def getmark(): # get a valid mark (or just return to exit) from user
+    from collections import namedtuple
+    from collections import defaultdict
+    import re
+
+    # grade letters and mark ranges defined in dictionary
+    # where each grade letter key has a tuple value to hold mark range
+    # each tuple should have the highest mark for the grade first
+    # * if there are gaps, then unmatched marks will return unclassified
+    # * if there are overlaps, any of the matching grades could be returned
+
+    MarkRange = namedtuple('MarkRange', 'top bottom description')
+    GradeResult = namedtuple('GradeResult', 'grade description')
+    grades = {
+        'A': MarkRange(top=100, bottom=90, description='Distinction'),
+        'B': MarkRange(top=89, bottom=75, description='Merit'),
+        'C': MarkRange(top=74, bottom=60, description='Good Pass'),
+        'D': MarkRange(top=59, bottom=50, description='Pass'),
+        'E': MarkRange(top=49, bottom=40, description='Poor'),
+        'U': MarkRange(top=39, bottom=10, description='** FAIL **')
+    }
+
+    excluded = GradeResult("X", "excluded")
+    marksfreq = defaultdict(int)  # keep track of all marks, so we can provide average
+    endentry = frozenset(['', 'q', 'x', 'end', 'exit', 'quit', 'bye', 'fini', 'finished'])
+
+    def highlow(markrange):  # return highest and lower marks possible in a MarksRange tuple list
+        from operator import attrgetter
+        highest = max(markrange, key=attrgetter('top'))
+        lowest = min(markrange, key=attrgetter('bottom'))
+        return highest.top, lowest.bottom
+
+    possiblemarks = list(grades.values())
+    top, bottom = highlow(possiblemarks)
+    print(f'top = {top}, bottom = {bottom}')
+
+    def grading(mark, grades):  # find dictionary entry for mark given
+        for gradecheck, marks in grades.items():
+            if mark in range(marks.bottom, marks.top + 1):
+                return GradeResult(gradecheck, marks.description)
+        else:  # if mark is not in grade table
+            return excluded
+
+    def invalidmarkmsg(markstr, zeroexclude=False):
+        print(f'{markstr} is not a valid entry.')
+        print(f'Allowed range is: {top} - {bottom}', end='')
+        if zeroexclude: print(f', or 0 for grade {excluded.grade} ({excluded.description})', end='')
+        print('.')
+
+    def getmarks(marks, grades):  # get a valid mark (or just return to exit) from user
         while True:
-            markstr = input(f'\nEnter mark: (exit) ')
-            if not markstr:  # check for return on own to exit
-                return None
-            if not markstr.isnumeric():  # check for non numeric input
-                print(f'The mark should be a simple whole number.')
-                continue
-            mark = int(markstr)
-            if not bottom <= mark <= top:  # check for out of range input for mark
-                print(f'{top} - {bottom} is the allowed range of a mark.')
-                continue
-            return mark
-    
-    
-    def greeting():
+            markstr = input('\nEnter mark: (exit) ')
+            if markstr.lower() in endentry: return False
+
+            markstrs = [mrk for mrk in re.split(' |,|;|, |; ', markstr) if mrk != '']
+
+            for markstr in markstrs:
+                if not markstr.isnumeric():  # check for non numeric input
+                    invalidmarkmsg(markstr, zeroexclude=bottom > 0)
+                    continue
+
+                mark = int(markstr)
+                if (mark == 0) or (bottom <= mark <= top):
+                    grade = grading(mark, grades)
+                    print(f'mark: {mark:4d},  grade {grade.grade} ({grade.description})')
+                    if bottom <= mark <= top:
+                        marks[mark] += 1
+                else:
+                    invalidmarkmsg(markstr, zeroexclude=bottom > 0)
+
+    def greeting(grades):
         print('\n\nWelcome to the grading programme\n\n')
         print(f'This programme converts marks in the range {top} to {bottom} to grades:\n')
         print("Grade\t    Marks")
-        for grade in grades:
-            print(f'{grade:^3s}\t{grades[grade][0]:4d} -{grades[grade][1]:4d}')
-        print()
-        print('Press enter/return on its own to complete entry of marks.')
-    
- 
-    def averages(marks, grades, out=True):  # print the average mark and corresponding grade
-        entries = sum(marks.values())
-        total = sum(key * marks[key] for key in marks)
+        for grade, markrange in grades.items():
+            print(f'{grade:^3s} {markrange.description:13s} {markrange.top:4d} -{markrange.bottom:4d}')
+        print('\nOn completion of entry of marks, an average mark and grade equivalence will be output')
+        print('followed by a marks by grade frequency table.\n')
+        print('\nPress enter/return on its own to complete entry of marks.')
+        print('(Multiple grades may be entered on one line, using commas for seperation.)')
+
+    def outputaverages(marksfreq, grades, out=True):  # print the average mark and corresponding grade
+        if len(marksfreq) == 0: return
+        entries = sum(marksfreq.values())
+        total = sum(mark * freq for mark, freq in marksfreq.items())
         avmark = total / entries
         avgrade = grading(int(avmark), grades)
         if out:
-            print(f'\n\nMarks #{len(marks)}, average: {avmark:.2f} = grade: {avgrade}')
+            print(f'\n\nMarks #{len(marksfreq)}, average: {avmark:.2f}, grade {avgrade.grade} ({avgrade.description})')
         return avmark, avgrade
-    
- 
-    def table(marks, grades):  # print frequency table of marks if user wants it
-        response = input('\nDo you want a table of marks and grades? (Yes) ').rstrip().lower()
-        if response in affirmation or not response:
-            print('\n\nFrequency table of marks.\n')
-            print('Mark Freq    Grade')
-            for markfr in sorted(marks.items()):
-                print(f'{markfr[0]:4d} {markfr[1]:4d}      {grading(markfr[0], grades)}')
-    
 
-    initialise()
-    greeting()
-    
-    # main loop for input of marks and output of grades
-    while True:
-        mark = getmark()
-        if mark is not None:
-            marks[mark] = marks.get(mark,0) + 1
-            print(f'mark: {mark:4d} = grade: {grading(mark, grades)}')
-        else:
-            break
-    
-    # if any valid marks were entered
-    if marks:
-        averages(marks, grades)  # print average mark and grade
-        table(marks, grades)     # optionally print frequence table
-    
+    def outputfreqtables(marksfreq, grades):
+        if len(marksfreq) == 0: return
+
+        print('\n\nFrequency table of marks.\n')
+        print('Mark  Freq  Grade')
+        gradesfreq = defaultdict(int)
+
+        for markfr in sorted(marksfreq.items(), reverse=True):
+            graded = grading(markfr[0], grades)
+            gradesfreq[graded.grade] += markfr[1]
+            print(f'{markfr[0]:4d}  {markfr[1]:4d}  {graded.grade} ({graded.description})')
+
+        print('\n\nFrequency table of grades.\n')
+        print('Grade  Freq  Description')
+
+        for gradefr in sorted(gradesfreq.items()):
+            print(f'{gradefr[0]:4s}  {gradefr[1]:4d}  {grades[gradefr[0]].description}')
+
+    ###################################
+    #   main routine
+    ###################################
+
+    greeting(grades)
+    getmarks(marksfreq, grades)
+    outputaverages(marksfreq, grades)
+    outputfreqtables(marksfreq, grades)
     print('\n\n== FINISHED ==\n\n')
 
+
 if __name__ == "__main__":
-    grade.main()
+    main()

@@ -22,7 +22,8 @@
 # A mark of 0 is assumed to be an excluded mark (not included in frequency table
 # unless it is explicitly included in the grade table)
 
-def main():
+
+if __name__ == "__main__":
     from collections import namedtuple
     from collections import defaultdict
     import re
@@ -140,7 +141,3 @@ def main():
     outputaverages(marksfreq, grades)
     outputfreqtables(marksfreq, grades)
     print('\n\n== FINISHED ==\n\n')
-
-
-if __name__ == "__main__":
-    main()

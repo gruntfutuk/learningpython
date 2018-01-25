@@ -6,7 +6,7 @@ from operator import itemgetter
 from collections import namedtuple
 
 NameScore = namedtuple('NameScore', 'name score')
-scoretable = []
+scoretable = {}
 
 while True:
     name = input('Name of student (return to exit): ')
@@ -24,7 +24,7 @@ if len(scoretable) > 1:
     if len(scoretable) > 1:
         for name, score in scoretable[1:]:
             if score > lowest:
-                if score > low2nd and low2nd > lowest:
+                if score > low2nd > lowest:
                     break
                 print(f'2nd lowest: {name} {score}')
                 low2nd = score
