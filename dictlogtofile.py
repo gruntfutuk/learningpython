@@ -53,6 +53,6 @@ with open('output.csv', 'w') as f:
     writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     dumdata = dummy()
     valuenames = headers(dumdata)
-    writer.writerow(["log name"] + [valuenames])
+    writer.writerow(["log name"] + valuenames)
     rows(dumdata, valuenames, writer)
 
