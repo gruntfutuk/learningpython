@@ -1,3 +1,9 @@
+'''simple arithemtic operations from text phrase called on random numbers
+
+   The text phrase is plain english, with specific non operational and general
+   stop words removed.
+'''
+
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 import nltk
