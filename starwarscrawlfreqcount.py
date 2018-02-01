@@ -1,12 +1,13 @@
-# count frequency of words in Star Wars opening text (excluding title and words 'the' and 'has')
+# count frequency of words in Star Wars opening text (excluding words 'the' and 'has')
 # text from starwars.wikia.com/wiki/Opening_crawl
 
-from collections import defaultdict as dd
-import string
 
 def addeptext(eptext):
+    '''append to list of strings the opening crawl text of each Stars Wars episode'''
 
-    eptext.append('''Turmoil has engulfed the
+    eptext.append('''Episode I
+    THE PHANTOM MENACE
+    Turmoil has engulfed the
     Galactic Republic. The taxation
     of trade routes to outlying star
     systems is in dispute.
@@ -27,7 +28,9 @@ def addeptext(eptext):
     peace and justice in the
     galaxy, to settle the conflict....''')
 
-    eptext.append('''There is unrest in the Galactic
+    eptext.append('''Episode II
+    ATTACK OF THE CLONES
+    There is unrest in the Galactic
     Senate. Several thousand solar
     systems have declared their
     intentions to leave the Republic.
@@ -47,7 +50,9 @@ def addeptext(eptext):
     to assist the overwhelmed
     Jedi....''')
 
-    eptext.append('''War! The Republic is crumbling
+    eptext.append('''Episode III
+    REVENGE OF THE SITH
+    War! The Republic is crumbling
     under attacks by the ruthless
     Sith Lord, Count Dooku.
     There are heroes on both sides.
@@ -67,7 +72,9 @@ def addeptext(eptext):
     desperate mission to rescue the
     captive Chancellor....''')
 
-    eptext.append('''It is a period of civil war.
+    eptext.append('''Episode IV
+    A NEW HOPE
+    It is a period of civil war.
     Rebel spaceships, striking
     from a hidden base, have won
     their first victory against
@@ -89,7 +96,9 @@ def addeptext(eptext):
     her people and restore
     freedom to the galaxy.....''')
 
-    eptext.append('''It is a dark time for the
+    eptext.append('''Episode V
+    THE EMPIRE STRIKES BACK
+    It is a dark time for the
     Rebellion. Although the Death
     Star has been destroyed,
     Imperial troops have driven the
@@ -110,7 +119,9 @@ def addeptext(eptext):
     thousands of remote probes into
     the far reaches of space....''')
 
-    eptext.append('''Luke Skywalker has returned to
+    eptext.append('''Episode VI
+    RETURN OF THE JEDI
+    Luke Skywalker has returned to
     his home planet of Tatooine in
     an attempt to rescue his
     friend Han Solo from the
@@ -130,7 +141,9 @@ def addeptext(eptext):
     struggling to restore freedom
     to the galaxy...''')
 
-    eptext.append('''Luke Skywalker has vanished.
+    eptext.append('''Episode VII
+    THE FORCE AWAKENS
+    Luke Skywalker has vanished.
     In his absence, the sinister
     FIRST ORDER has risen from
     the ashes of the Empire
@@ -152,7 +165,9 @@ def addeptext(eptext):
     has discovered a clue to
     Luke's whereabouts....''')
 
-    eptext.append('''The FIRST ORDER reigns.
+    eptext.append('''Episode VIII
+    THE LAST JEDI
+    The FIRST ORDER reigns.
     Having decimated the peaceful
     Republic, Supreme Leader Snoke
     now deploys the merciless
@@ -174,25 +189,42 @@ def addeptext(eptext):
     desperate escape....''')
 
 
-def countwords(epcount, eptext):
+def countwords(epcount, eptext, EXCLUDEWORDS):
+    '''generate frequency table in dictionary of occurrences of words in supplied list of strings'''
+    import string
     for episode in eptext:
         for word in episode.split():
             cleanword = word.translate(str.maketrans('','',string.punctuation)).lower()
-            epcount[cleanword] += 1
+            if cleanword not in EXCLUDEWORDS: epcount[cleanword] += 1
 
 
-def outputcount(epcount):
-    for word, count in sorted(epcount.items(), key=lambda x: (x[1],x[0])):
-        print(word, count)
+def outputcount(epcount, EXCLUDEWORDS):
+    '''Output frequency table dictionary of word occurrences ordered by value then key'''
 
 
-eptext = []
-epcount = dd(int)
-addeptext(eptext)
-countwords(epcount, eptext)
+    print('\n\n')
+    print("Star Wars films - opening 'crawl' text frequency count.")
+    if EXCLUDEWORDS:
+        print(f'\t(excluding the words: {", ".join(EXCLUDEWORDS)})\n')
+    print(f'{"word":<15} {"count":>4}')
+    for word, count in sorted(epcount.items(), key=lambda x: (-x[1],x[0])):
+        print(f'{word:<15} {count:>4d}')
 
-# remove count of very boring words
-del epcount['the']
-del epcount['has']
+'''
+    main code
+'''
+def main():
 
-outputcount(epcount)
+    from collections import defaultdict as dd
+
+    eptext = []
+    epcount = dd(int)
+    EXCLUDEWORDS = frozenset({'the','of', 'to', 'has', 'a'})
+
+    addeptext(eptext)
+    countwords(epcount, eptext, EXCLUDEWORDS)
+    outputcount(epcount, EXCLUDEWORDS)
+
+
+if __name__ == "__main__":
+    main()
