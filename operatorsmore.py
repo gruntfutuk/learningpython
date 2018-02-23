@@ -122,7 +122,7 @@ def evaluateexpression(entered):
             evalrpn()
     except BadExpression:
         print(f'{entered} is not an acceptable expression.')
-        return
+        return "no answer"
 
     return values[0]
 
@@ -132,5 +132,5 @@ while True:
     entered = input('\nEnter a simple expression: (or return to exit) ')
     if not entered:break
     answer = evaluateexpression(entered)
-    if answer: print(f'\n{entered} = {answer}\n')
+    print(f'\n{entered} = {answer}\n')
 
