@@ -94,13 +94,12 @@ def main():
 
     print(f"\n\nTotal scores: You: {scores['Player']}, Computer: {scores['Computer']}, Ties: {scores['Tie']}\n\n")
     if winners:
-        print('\Table of winners:\n')
+        print('\nTable of winners:\n')
         heading = f"{'Winner':^10}   Result"
         print(heading,'\n', "-" * len(heading))
         for round in winners:
             print(f'{round[0]:^10}: {round[1]}')
 
 
-# usually would have if __name__ == "__main__": to call main()
-# but it doesn't work on repl.it
-main()
+if __name__ == "__main__":
+    main()
