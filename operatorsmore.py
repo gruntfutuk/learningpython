@@ -1,41 +1,42 @@
-import regex
+""" simple arithmetic expression evaluator """
+
+import regex as re
 import operator
 
-ops = {'+':  operator.add,
-       '-':  operator.sub,
-       '*':  operator.mul,
-       '/':  operator.truediv,
+ops = {'+': operator.add,
+       '-': operator.sub,
+       '*': operator.mul,
+       '/': operator.truediv,
        '//': operator.floordiv,
-       '%':  operator.mod,
+       '%': operator.mod,
        '**': operator.pow,
-       '^':  operator.pow,
-       '<':  operator.lt,
+       '^': operator.pow,
+       '<': operator.lt,
        '<=': operator.le,
        '==': operator.eq,
        '!=': operator.ne,
        '>=': operator.ge,
-       '>':  operator.gt
+       '>': operator.gt
        }
 
 precedence = {
-       '+':  10,
-       '-':  10,
-       '*':  20,
-       '/':  20,
-       '//': 20,
-       '%':  20,
-       '**': 30,
-       '^':  30,
-       '<':  5,
-       '<=': 5,
-       '==': 5,
-       '!=': 5,
-       '>=': 5,
-       '>':  5,
-       '(':  1,
-       ')':  1
-       }
-
+    '+': 10,
+    '-': 10,
+    '*': 20,
+    '/': 20,
+    '//': 20,
+    '%': 20,
+    '**': 30,
+    '^': 30,
+    '<': 5,
+    '<=': 5,
+    '==': 5,
+    '!=': 5,
+    '>=': 5,
+    '>': 5,
+    '(': 1,
+    ')': 1
+}
 
 
 def evaluateexpression(entered):
@@ -46,24 +47,23 @@ def evaluateexpression(entered):
             Exception.__init__(self)
             self.msg = msg
 
-
     def tokenise(entered):
         ''' convert list of expression elements to returned list of correctly typed elements '''
 
-        repattern = regex.compile("""
-                         \s*                # Ignore leading whitespace
-                         (                  # Group the result, which is either ...
-                          (?<!\d)-?         # A possibly negative (but not the operator minus)
-                          \d+               # number
-                          (?:\.\d+)?        # with optional fraction part
-                         |                  # ... or alternate group of ...
+        repattern = re.compile('''
+                         \s*                # bypass leading whitespace
+                         (                  # grouping starts
+                          (?<!\d)-?         # allow for negative number (rather than - operator)
+                          \d+               # a number, optionally followed by fractional part
+                          (?:\.\d+)?        # assumes we use . a decimal seperator
+                         |                  # OR
                            (?://|\*\*)      # Non-capturing single operator
                            |(?:[+-/*^])     # or two-character operator group
-                         )                  # ... end of group
-                         \s*                # Ignore trailing whitespace
-                         """, regex.X)
+                         )                  # grouping ends
+                         \s*                # bypass trailing whitespace
+                         ''', re.VERBOSE)
 
-        expression = regex.split(repattern, entered)
+        expression = re.split(repattern, entered)
 
         newexpression = []
         for token in expression:
@@ -81,56 +81,84 @@ def evaluateexpression(entered):
                 newexpression.append(newtoken)
         return newexpression
 
-
     def evalrpn():
         ''' evaluate topmost operation on stack, replace top two values with answer, remove operator '''
+
         if len(values) <= 1:
             raise BadExpression('Error - too many operators for values provided')
         if len(operators) == 0:
             raise BadExpression('Error - too few operators for values provided')
-        num2 = values.pop()
-        num1 = values.pop()
+        x = values.pop()
+        y = values.pop()
         op = operators.pop()
 
         try:
-            answer = ops[op](num1, num2)
+            answer = ops[op](x, y)
         except Exception as inst:
-            raise BadExpression(f'Error: {inst}, {num1} {op} {num2}')
+            raise BadExpression(f'Error: {inst}, {x} {op} {y}')
         else:
             values.append(answer)
+
     try:
         expression = tokenise(entered)
-        values = []
-        operators = []
-        for token in expression:
-            if isinstance(token, int):
-                values.append(int(token))
-            elif isinstance(token, float):
-                values.append(float(token))
-            elif isinstance(token, str):
-                if token == '(':
-                    operators.append(token)
-                elif token == ')':
-                    while not operators[-1] == '(':
-                        evalrpn()
-                    operators.pop() # remove the (
-                elif token in ops:
-                    while len(operators) > 0 and precedence[operators[-1]] >= precedence[token]:
-                        evalrpn()
-                    operators.append(token)
+    except BadExpression as bad:
+        return f'{bad.msg}'
+
+    values = []
+    operators = []
+
+    for token in expression:
+        if isinstance(token, int):
+            values.append(int(token))
+        elif isinstance(token, float):
+            values.append(float(token))
+        elif isinstance(token, str):
+            if token == '(':
+                operators.append(token)
+            elif token == ')':
+                while not operators[-1] == '(':
+                    evalrpn()
+                operators.pop()  # remove the matching (
+            elif token in ops:
+                while len(operators) > 0 and precedence[operators[-1]] >= precedence[token]:
+                    evalrpn()
+                operators.append(token)
+        else: raise BadExpression('{token} not recognised.')
+
+    try:
         while len(operators) > 0:
             evalrpn()
-    except BadExpression:
-        print(f'{entered} is not an acceptable expression.')
-        return "no answer"
 
-    return values[0]
+    except BadExpression as bad:
+        return f'{bad.msg}'
 
+    return f'{entered} = {values[0]}'
+
+
+print('''
+
+Welcome to this simple arithmetic expression evaluator
+
+Basic arithmetic and logic operators that work on two values are
+understood and may be chained. Round brackets can also be used
+to override BODMAS precedence order (and are required for consecutive
+power operators at present). Evaluator works with floats and integers
+only.
+
+(Note. ** and ^ are both used for raising to power.)
+
+RPN entry is also supported (use spaces to separate inputs).
+
+Exit by entering nothing (or words/characters like q, quit, exit, etc).
+        
+''')
 
 while True:
 
-    entered = input('\nEnter a simple expression: (or return to exit) ')
-    if not entered:break
-    answer = evaluateexpression(entered)
-    print(f'\n{entered} = {answer}\n')
+    leave = frozenset(['q', 'exit', 'exit()', 'quit', 'end', 'fini', 'finish', 'bye', "x", ""])
+    providedexpression = input('\nEnter a simple expression: ')
+    if providedexpression.lower() in leave: break
+    answer = evaluateexpression(providedexpression)
+    print(f'\n{answer}\n')
 
+print('\n\n** finished **\n\n')
