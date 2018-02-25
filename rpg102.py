@@ -15,7 +15,7 @@ class Character:
         Character.characters += 1
 
     def __repr__(self):
-        return f'{self.name:>7} ({self.health:3d}) [{self.hitpoints:3d}] {self.char_type}'
+        return f'{self.name:>10} | {self.health:5d}) | {self.hitpoints:3d} | {self.char_type:<10} |'
 
     def combat(self, woundpoints):
         ''' adjust health of character based on woundpoints inflicted. '''
@@ -41,6 +41,8 @@ class Character:
         ''' output status of characters that are still alive. '''
 
         alive = []
+        print('     Name  | Health | Pwr | Type       | Spells & Potions')
+        print('---------------------------------------------------------')
         for player in players:
             if player.alive():
                 alive.append(player.name)
@@ -113,7 +115,7 @@ class Wizard(Character):
 
     def __repr__(self):
         general = Character.__repr__(self)
-        return general + f' [ spells: {self.spells} potions: {self.potions} ]'
+        return general + f' {self.spells} | {self.potions} |'
 
     def recuperate(self):
         while self.health < self.threshold and not self.potions == []:
@@ -137,6 +139,14 @@ print('\n'
       '\n')
 
 NAMES = frozenset(['Fred', 'Bert', 'Sarah', 'Charlie', 'David', 'Kevin', 'Helen', 'Wendy', 'Steve', 'Tom', 'Linda'])
-names = Character.pickplayers(NAMES)
-players = Character.generatecharacters(names)
-Character.battle(players)
+
+while True:
+    names = Character.pickplayers(NAMES)
+    players = Character.generatecharacters(names)
+    Character.battle(players)
+
+    if not input('Go again? ').strip().lower() in ['yes', 'y', 'ok', 'go', 'yeh', 'sure', 'please', 'k', 'si']:
+        break
+
+    del names
+    del players
