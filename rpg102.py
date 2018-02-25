@@ -15,7 +15,7 @@ class Character:
         Character.characters += 1
 
     def __repr__(self):
-        return f'{self.name:>10} | {self.health:5d}) | {self.hitpoints:3d} | {self.char_type:<10} |'
+        return f'{self.name:>10} | {self.health:5d}  | {self.hitpoints:3d} | {self.char_type:<10} |'
 
     def combat(self, woundpoints):
         ''' adjust health of character based on woundpoints inflicted. '''
