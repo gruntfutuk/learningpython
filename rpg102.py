@@ -1,4 +1,4 @@
-''' A simple character battle game - the next step, usig subclasses.'''
+''' A simple character battle game - the next step, using subclasses.'''
 
 from random import randint as rint
 from random import randrange
@@ -15,7 +15,7 @@ class Character:
         Character.characters += 1
 
     def __repr__(self):
-        return f'{self.name:>7} ({self.health:3d}) [{self.hitpoints:3d}] {self.char_type}'
+        return f'{self.name:>10} | {self.health:4d} | {self.hitpoints:6d}] {self.char_type:<8}  |'
 
     def combat(self, woundpoints):
         ''' adjust health of character based on woundpoints inflicted. '''
@@ -40,6 +40,8 @@ class Character:
     def result(*players):
         ''' output status of characters that are still alive. '''
 
+        print('\nStatus of players:\n')
+        print(f'{"Player":>10} |{"health"}|{"Hit Pwr"}|{"Playr Type":<8} | spells & potions')
         alive = []
         for player in players:
             if player.alive():
@@ -62,7 +64,7 @@ class Character:
 
         picks = list(NAMES)
         players = []
-        for _ in range(rint(2, len(NAMES))):
+        for _ in range(rint(5, len(NAMES))):
             players.append(picks.pop(randrange(len(picks))))
         return players
 
@@ -89,7 +91,7 @@ class Character:
         while True:
 
             print('\n' + '-' * 30)
-            print(f'Battle commences ...round {round}')
+            print(f'Battle commences ... round {round}\n')
 
             picks = [player for player in players if player.alive()]
             fights = len(picks) // 2
@@ -113,7 +115,7 @@ class Wizard(Character):
 
     def __repr__(self):
         general = Character.__repr__(self)
-        return general + f' [ spells: {self.spells} potions: {self.potions} ]'
+        return general + f' {self.spells} {self.potions}'
 
     def recuperate(self):
         while self.health < self.threshold and not self.potions == []:
@@ -136,7 +138,17 @@ print('\n'
       'Let the fight commence ...\n'
       '\n')
 
-NAMES = frozenset(['Fred', 'Bert', 'Sarah', 'Charlie', 'David', 'Kevin', 'Helen', 'Wendy', 'Steve', 'Tom', 'Linda'])
+NAMES = frozenset([
+    'Austin', 'Adam', 'David', 'Leo', 'Nathan', 'John', 'Samuel', 'Dylan', 'Lincoln', 'Josiah', 'Nicholas', 'Cameron',
+    'Levi', 'Owen', 'Isaac', 'Isaiah', 'Henry', 'Connor', 'Gabriel', 'Wyatt', 'William', 'Jack', 'Julian', 'Luke',
+    'Caleb', 'Mateo', 'Jayce', 'Daniel', 'Matthew', 'Ryan', 'James', 'Benjamin', 'Jacob', 'Alexander', 'Sebastian',
+    'Michael', 'Carter', 'Muhammad', 'Jayden', 'Ethan', 'Oliver', 'Logan', 'Elijah', 'Mason', 'Grayson', 'Caden',
+    'Lucas', 'Aiden', 'Noah', 'Liam', 'Jackson', 'Grace', 'Penelope', 'Luna', 'Victoria', 'Mackenzie', 'Brooklyn',
+    'Sarah', 'Anna', 'Isabelle', 'Addison', 'Elizabeth', 'Paisley', 'Madelyn', 'Hailey', 'Kinsley', 'Kaylee', 'Ellie',
+    'Leah', 'Hannah', 'Eliana', 'Arianna', 'Camilla', 'Nora', 'Mila', 'Maya', 'Scarlett', 'Ella', 'Avery', 'Aaliyah',
+    'Madison', 'Abigail', 'Emily', 'Adalyn', 'Evelyn', 'Harper', 'Chloe', 'Lily', 'Aubrey', 'Charlotte', 'Layla',
+    'Amelia', 'Zoe', 'Riley', 'Aria', 'Mia', 'Isabella', 'Ava', 'Emma', 'Olivia', 'Sophia'
+])
 names = Character.pickplayers(NAMES)
 players = Character.generatecharacters(names)
 Character.battle(players)
