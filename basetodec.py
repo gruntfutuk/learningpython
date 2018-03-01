@@ -20,6 +20,15 @@ def anybase_to_dec(basestr, base=2):
     if not 2 <= base <= 36:
         raise ValueError(f'{base} out of range base range 2 - 36')
 
+    if len(basestr) > 2:
+        basecodes = {'0b': 2, '0o': 8, '0x': 16}
+        basecode = basestr[:2]
+        if basecode in basecodes:
+            checkbase = basecodes[basecode]
+            if not base == checkbase:
+                raise ValueError(f'Base requested, {base}, and base code in string, {checkbase}, do not match.')
+            basestr = basestr[2:]
+
     decimalmark = '.'
     decimalsep = ','
     if decimalmark in basestr:
@@ -31,8 +40,8 @@ def anybase_to_dec(basestr, base=2):
         if digit in [' ', '_', decimalsep]:
             pass
         else:
-            if digit not in digits:
+            if digit.upper() not in digits:
                 raise ValueError(f'({digit} is not a valid digit in base {base}.)')
             dec *= base
-            dec += digits.find(digit)
+            dec += digits.find(digit.upper())
     return dec
