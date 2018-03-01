@@ -1,15 +1,19 @@
-from characters.characters import *
+''' Wizard subclass of common Character.
 
-class Wizard(Character):
+Has additional attributes and alternative method for alive status to apply recuperation if possible and needed
+'''
+from . import common
+
+class Wizard(common.Character):
 
     def __init__(self,name, health, hitpoints, char_type='wizard', spells=[], potions=[]):
-        Character.__init__(self, name, health, hitpoints, char_type)
+        common.Character.__init__(self, name, health, hitpoints, char_type)
         self.spells = spells
         self.potions = potions
         self.threshold = 50
 
     def __repr__(self):
-        general = Character.__repr__(self)
+        general = common.Character.__repr__(self)
         return general + f' {self.spells} | {self.potions} |'
 
     def recuperate(self):
