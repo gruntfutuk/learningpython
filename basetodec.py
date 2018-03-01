@@ -1,22 +1,38 @@
+''' basic number conversion functions.'''
+
 import string
 
-def base_to_dec(basestr, base=2):
+def anybase_to_dec(basestr, base=2):
+    ''' converts a string holding a number in any base 2 - 36 to decimal.
+
+    Args:
+        basestr (str): string of digits (0-9A-Z) of number in the specified base
+        base (int): number base to be used, defaults to 2 for binary
+
+    Returns:
+        dec: the decimal equivalent of passed number in specific base.
+
+    '''
+    if not isinstance(basestr, str):
+        raise TypeError('Number for conversion must be supplied as a string')
+    if not isinstance(base, int):
+        raise TypeError('Base to convert from to a decimal must be an integer in the range 2 - 36')
     if not 2 <= base <= 36:
         raise ValueError(f'{base} out of range base range 2 - 36')
+
+    decimalmark = '.'
+    decimalsep = ','
+    if decimalmark in basestr:
+        raise TypeError('Only integer values can be handled')
+
     dec = 0
-    digits = string.digits + string.ascii_uppercase
-    digits = digits[:base]
-    for power, digit in enumerate(basestr[::-1]):
-        if digit not in digits:
-            raise ValueError(f'({digit} is not a valid digit in base {base}.)')
-        
-        dec += digits.find(digit) * base**power
+    digits = (string.digits + string.ascii_uppercase)[:base]
+    for digit in basestr:
+        if digit in [' ', '_', decimalsep]:
+            pass
+        else:
+            if digit not in digits:
+                raise ValueError(f'({digit} is not a valid digit in base {base}.)')
+            dec *= base
+            dec += digits.find(digit)
     return dec
-
-print(base_to_dec('00111011'))
-print(base_to_dec('77',8))
-k=base_to_dec
-p=print
-p(k('5Z78',18))
-
-        
