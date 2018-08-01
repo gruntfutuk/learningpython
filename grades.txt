@@ -1,0 +1,8 @@
+math
+88.0
+comm
+93.0
+chem
+80.0
+ethics
+96.0

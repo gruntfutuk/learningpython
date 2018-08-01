@@ -2,6 +2,7 @@
 
 import string
 
+
 def anybase_to_dec(basestr, base=2):
     ''' converts a string holding a number in any base 2 - 36 to decimal.
 
@@ -12,11 +13,19 @@ def anybase_to_dec(basestr, base=2):
     Returns:
         dec: the decimal equivalent of passed number in specific base.
 
+    Notes:
+        * accepts numeric strings starting (optional) with base indicators,
+          0b, 0o, and 0x but will raise an error if such an indicator does not
+          match the requested base
+        * accepts upper or lower case letters to be used for bases > 10
+        * ignores space, _ and decimal seperator (defined as a comma)
+
     '''
     if not isinstance(basestr, str):
         raise TypeError('Number for conversion must be supplied as a string')
     if not isinstance(base, int):
-        raise TypeError('Base to convert from to a decimal must be an integer in the range 2 - 36')
+        raise TypeError(
+            'Base to convert from to a decimal must be an integer in the range 2 - 36')
     if not 2 <= base <= 36:
         raise ValueError(f'{base} out of range base range 2 - 36')
 
@@ -36,12 +45,18 @@ def anybase_to_dec(basestr, base=2):
 
     dec = 0
     digits = (string.digits + string.ascii_uppercase)[:base]
+
     for digit in basestr:
         if digit in [' ', '_', decimalsep]:
             pass
         else:
             if digit.upper() not in digits:
-                raise ValueError(f'({digit} is not a valid digit in base {base}.)')
+                raise ValueError(f'({digit} is not ' +
+                                 f'a valid digit in base {base}.)')
             dec *= base
             dec += digits.find(digit.upper())
     return dec
+
+
+if __name__ == "__main__":
+    print(f'The result is: {anybase_to_dec("101")}')

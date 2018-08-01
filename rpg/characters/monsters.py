@@ -6,3 +6,4 @@ from . import common
 
 class Monster(common.Character):
     pass
+

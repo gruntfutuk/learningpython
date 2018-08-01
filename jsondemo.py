@@ -1,0 +1,91 @@
+''' arbitarily complex data structure saved to and retrieved from json. '''
+
+import json
+from json import JSONEncoder
+from random import randint
+from random import choice
+from random import random as randfloat
+from string import ascii_letters
+from pprint import pprint
+
+
+class CreateRandomData:
+
+    def __init__(self):
+        self.mytypes = []
+        self.data = {}
+
+    def create_str(self):
+        return ''.join(choice(ascii_letters) for _ in range(randint(5, 15)))
+
+    def create_int(self):
+        return randint(1, 1000)
+
+    def create_float(self):
+        return randfloat() * randint(1, 100)
+
+    def random_data(self, recursion=[0]):
+        data = {}
+        if recursion[0] > randint(5, 15):
+            return {'fini': 0}
+        else:
+            recursion[0] += 1
+        for index in range(randint(3, 7)):
+            func = getattr(self, choice(self.mytypes))
+            data[self.create_str()] = func()
+        return data
+
+    def create_dict(self):
+        return self.random_data()
+
+    def create_list(self):
+        return list(self.random_data().values())
+
+    def create_tuple(self):
+        return tuple(self.random_data().values())
+
+
+class Tryaclass:
+
+    trythis = 123
+
+    def __init__(self, n1, n2):
+        self.n1 = n1
+        self.n2 = n2
+
+    def add(self):
+        return self.n1 + self.n2
+
+    def mult(self):
+        return self.n1 * self.n2
+
+
+trying = Tryaclass(10, 15)
+
+data = CreateRandomData()
+data.mytypes = [atype for atype in dir(CreateRandomData) if "create_" in atype]
+original = data.random_data()
+
+print(f'Class definition:\n {Tryaclass.__dict__}')
+print(f'Class instance:\n {trying.__dict__}')
+# original['class'] = Tryaclass
+# original['instance'] = trying
+# check https://stackoverflow.com/questions/3768895/how-to-make-a-class-json-serializable
+# to deal with classes which are not JSON serializable
+
+
+# class MyEncoder(JSONEncoder):
+#    def default(self, o):
+#        return o.__dict__
+# MyEncoder().encode(f)
+
+with open('test.json', 'w') as f:
+    json.dump(original, f)
+
+with open('test.json', 'r') as f:
+    candidate = json.load(f)
+
+print('Original:')
+pprint(original)
+print('Candidate:')
+pprint(candidate)

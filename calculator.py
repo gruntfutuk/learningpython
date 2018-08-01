@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-from __future__ import division, print_function
 from textwrap import dedent
 import math
 import operator as op
-from collections import OrderedDict
 import re
 import doctest
 
@@ -15,40 +13,30 @@ TOKEN_SPLITTER = re.compile("""
      \d+                 # number
      (?:\.\d+)?          # with optional fraction part
     |                  # ... or alternate group of ...
-      (?://|\*\*)        # Non-capturing single operator 
+      (?://|\*\*)        # Non-capturing single operator
       |(?:[+-/*^])       # or two-character operator group
     )                  # ... end of group
     \s*                # Ignore trailing whitespace
     """, re.X)
 
 # Define legal operators in precedence order
-OPERATORS = OrderedDict([
-    # '(' and ')' are not implemented yet!, and needs special care
-    ('^', math.pow),
-    ('**', math.pow),
-    ('*', op.mul),
-    ('/', op.div),
-    ('//', op.floordiv),
-    ('+', op.add),
-    ('-', op.sub),
-])
-
-OPERATORS = OrderedDict([
-    ('**': operator.pow),
-    ('^':  operator.pow),
-        '*': operator.mul),
-        '/':  operator.truediv),
-        '//': operator.floordiv),
-        '+': operator.add),
-        '-': operator.sub),
-        '%':  operator.mod),
-        '<':  operator.lt),
-        '<=': operator.le),
-        '==': operator.eq),
-        '!=': operator.ne),
-        '>=': operator.ge),
-        '>':  operator.gt),
-])
+# '(' and ')' are not implemented yet!, and needs special care
+OPERATORS = {
+    '**': op.pow,
+    '^':  op.pow,
+    '*': op.mul,
+    '/':  op.truediv,
+    '//': op.floordiv,
+    '+': op.add,
+    '-': op.sub,
+    '%':  op.mod,
+    '<':  op.lt,
+    '<=': op.le,
+    '==': op.eq,
+    '!=': op.ne,
+    '>=': op.ge,
+    '>':  op.gt,
+}
 
 
 def tokenizer(expression):
@@ -87,8 +75,7 @@ def tokenizer(expression):
                 # Not a number, return operator as is
                 return token
 
-
-    ## Split into numbers and operators, and make number strings into numbers
+    # Split into numbers and operators, and make number strings into numbers
     return map(_numberify, TOKEN_SPLITTER.findall(expression))
 
 
@@ -147,7 +134,8 @@ def calculate(expression):
 
             # Here is the magic: It replaces a slice of the list, with the
             # calculated result of the operation applied to operands
-            token_list[operation_slice] = [OPERATORS[operator](operands[0], operands[2])]
+            token_list[operation_slice] = [
+                OPERATORS[operator](operands[0], operands[2])]
 
         # If the token list only has one element left, we're done calculating
         # and can return the result
@@ -156,7 +144,8 @@ def calculate(expression):
 
     # If however we've exhausted all operators, and the list has multiple
     # elements there is an error in the original expression.
-    raise ValueError("Couldn't calculate all of it! Remaining tokens: {}".format(token_list))
+    raise ValueError(
+        "Couldn't calculate all of it! Remaining tokens: {}".format(token_list))
 
 
 def main():
@@ -170,12 +159,12 @@ def main():
         want to end the calculator."""))
 
     while True:
-        expression = raw_input("Type in expression (or 'quit'): ").lower()
+        expression = input("Type in expression (or 'quit'): ").strip().lower()
 
         if expression == 'quit':
             break
 
-        print("    {} = {}".format(expression, calculate(expression)))
+        print(f"    {expression} = {calculate(expression)}")
 
 
 if __name__ == '__main__':
