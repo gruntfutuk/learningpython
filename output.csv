@@ -1,5 +1,18 @@
-name, age, dob, town, gender
-Stuart,54,1963, Stirchley, Male, hello, stuart
-Lucy,50,1967, Stirchley, Female, weird, words
-Zotty,26,1991, Palmers Green, Female, nowhere, hide
-Alexandra,24,1993, Finsbury, Female, bouncing, ball
+Year,Spent per Shopper,Total Spent,Percent Increase
+2002,N.A.,$416.4 billion,2.1%
+2003,N.A.,$437.6 billion,5.1%
+2004,N.A.,$467.2 billion,6.8%
+2005,$734.69,$496.2 billion,6.2%
+2006,$750.70,$512.6 billion,3.2%
+2007,$755.13,$525.9 billion,2.7%
+2008,$694.19,$501.7 billion,-4.6%
+2009,$681.83,$503.2 billion,0.2%
+2010,$718.98,$529.4 billion,5.2%
+2011,$740.57,$553.8 billion,4.6%
+2012,$752.24,$568.7 billion,2.6%
+2013,$767.24,$584.1 billion,2.9%
+2014,$802.45,$608.0 billion,5.0%
+2015,$805.65,$626.1 billion,3.2%
+2016,$935.58,$655.8 billion,3.6%
+2017,$967.13,$682.0 billion,4.0%
+2018,"$1,007.24",$717.5 billion,4.3%
