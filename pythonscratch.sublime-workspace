@@ -3,67 +3,31 @@
 	{
 		"selected_items":
 		[
-			[
-				"cre",
-				"create_str\tfunction"
-			],
-			[
-				"all",
-				"all_attribs\tstatement"
-			],
-			[
-				"ite",
-				"item_no\tparam"
-			],
-			[
-				"rand",
-				"randint\tfunction"
-			],
-			[
-				"stu",
-				"student_marks\tparam"
-			],
-			[
-				"se",
-				"set_trace\tfunction"
-			],
-			[
-				"st3",
-				"st3try4.py"
-			],
-			[
-				"f",
-				"f"
-			],
-			[
-				"an",
-				"anybase_to_dec"
-			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "jsondemo.py",
+			"contents": "Package Control Messages\n========================\n\nAnaconda\n--------\n\n  \n  \n                                                            |\n                _` |  __ \\    _` |   __|   _ \\   __ \\    _` |   _` |\n               (   |  |   |  (   |  (     (   |  |   |  (   |  (   |\n              \\__,_| _|  _| \\__,_| \\___| \\___/  _|  _| \\__,_| \\__,_|\n  \n                                       The Sublime Text 3 Python IDE\n  \n  \n  Welcome to anaconda, the Sublime Text 3 Python IDE. We hope you enjoy it :)\n  \n  Anaconda works fine out of the box but you can configure it to totally adapt\n  it to your needs or style.\n  \n  For a complete guide of use and configuration take a look at:\n  \n  \thttp://damnwidget.github.io/anaconda/\n  \n  Please, consider donating to maintain this project alive:\n  \n  \thttps://pledgie.com/campaigns/32230\n",
 			"settings":
 			{
-				"buffer_size": 2171,
-				"encoding": "UTF-8",
+				"buffer_size": 828,
 				"line_ending": "Unix",
-				"name": "''' arbitarily complex data structure saved to and"
+				"name": "Package Control Messages",
+				"read_only": true,
+				"scratch": true
 			}
 		},
 		{
-			"file": "MenuDictionaryAuto-master.py",
+			"file": "IDrive-Sync/pythonscratch/st3try2.py",
 			"settings":
 			{
-				"buffer_size": 1626,
-				"encoding": "UTF-8",
+				"buffer_size": 123,
 				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Packages/Python/Python.sublime-build",
 	"build_system_choices":
 	[
 		[
@@ -86,32 +50,16 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 354.0,
-		"last_filter": "M",
+		"height": 358.0,
+		"last_filter": "inst",
 		"selected_items":
 		[
 			[
-				"M",
-				"Material Theme: Activate theme"
-			],
-			[
-				"ins",
+				"inst",
 				"Package Control: Install Package"
-			],
-			[
-				"remove",
-				"Package Control: Remove Package"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
-			],
-			[
-				"pack",
-				"Install Package Control"
 			]
 		],
-		"width": 704.0
+		"width": 444.0
 	},
 	"console":
 	{
@@ -131,43 +79,14 @@
 	},
 	"file_history":
 	[
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/Anaconda/Anaconda.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/JSON (Sublime).sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/Python PEP8 Autoformat/Default (OSX).sublime-keymap",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/pep8_autoformat.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/Python PEP8 Autoformat/pep8_autoformat.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/Python Flake8 Lint/Flake8Lint.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/Flake8Lint.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/SublimeREPL/SublimeREPL.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/SublimeREPL.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/TrailingSpaces/trailing_spaces.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/trailing_spaces.sublime-settings",
-		"/Users/stuartmoore/kyber.co.uk-blog2018/content/keyboard-review.md",
-		"/Users/stuartmoore/Downloads/index.html",
-		"/Users/stuartmoore/IDrive-Sync/pythonscratch/MenuDictionaryAuto-master.py",
-		"/Users/stuartmoore/IDrive-Sync/pythonscratch/st3try4.py",
-		"/Users/stuartmoore/IDrive-Sync/pythonscratch/studentscores.py",
-		"/Users/stuartmoore/IDrive-Sync/pythonscratch/pydocscheck.py",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/Anaconda/Default (OSX).sublime-keymap",
-		"/Users/stuartmoore/IDrive-Sync/pythonscratch/arithmatic_phrase.py",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/Terminal (OSX).sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/Terminal/Terminal.sublime-settings",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/python3-interactive.sublime-build",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/PythonRUN.sublime-build",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/PythonREPL.sublime-build",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/Python_RUN_current_file.sublime-build",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/Run_in_Python.sublime-build",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/repl.sublime-build",
-		"/Users/stuartmoore/pythonscratch/COMMIT_EDITMSG.COMMIT_EDITMSG",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/SublimeREPL/config/Python/ipy_repl.py",
-		"/Users/stuartmoore/IDrive-Sync/pythonscratch/areas.py",
-		"/Users/stuartmoore/IDrive-Sync/pythonscratch/basetodec.py",
-		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/Side Bar.sublime-settings"
+		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/anaconda.sublime-build",
+		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/python3.sublime-build",
+		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/User/Python.sublime-settings",
+		"/Users/stuartmoore/Library/Application Support/Sublime Text 3/Packages/Anaconda/Anaconda.sublime-settings"
 	],
 	"find":
 	{
-		"height": 36.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -181,13 +100,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"d2[key]",
-			"value",
-			"  ",
-			"_menu_enumerator",
-			"cint",
-			"var1",
-			"names"
+			"python"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -195,9 +108,8 @@
 		"regex": false,
 		"replace_history":
 		[
-			"    "
 		],
-		"reverse": true,
+		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
 		"whole_word": false,
@@ -211,185 +123,26 @@
 			[
 				{
 					"buffer": 0,
-					"file": "jsondemo.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2171,
+						"buffer_size": 828,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								270,
-								270
+								828,
+								828
 							]
 						],
 						"settings":
 						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"auto_name": "''' arbitarily complex data structure saved to and",
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.clone": -1,
-							"bracket_highlighter.clone_locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.clone_regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content"
-							],
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content"
-							],
-							"syntax": "Packages/Python 3/Python3.tmLanguage",
-							"translate_tabs_to_spaces": true
+							"auto_indent": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_width": 2,
+							"word_wrap": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -400,200 +153,24 @@
 				},
 				{
 					"buffer": 1,
-					"file": "MenuDictionaryAuto-master.py",
+					"file": "IDrive-Sync/pythonscratch/st3try2.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1626,
+						"buffer_size": 123,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								215,
-								215
+								119,
+								123
 							]
 						],
 						"settings":
 						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.clone": -1,
-							"bracket_highlighter.clone_locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.clone_regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content"
-							],
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										229,
-										230
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/round_bracket.png",
-										"region.yellowish"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										187,
-										188
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content"
-							],
-							"syntax": "Packages/Python 3/Python3.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -607,11 +184,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 75.0
+		"height": 23.0
 	},
 	"input":
 	{
-		"height": 70.0
+		"height": 0.0
 	},
 	"layout":
 	{
@@ -636,23 +213,19 @@
 		]
 	},
 	"menu_visible": true,
-	"output.SublimeLinter":
-	{
-		"height": 0.0
-	},
 	"output.exec":
 	{
-		"height": 248.0
+		"height": 310.0
 	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "Packages/User/PythonRUN.sublime-build",
+	"pinned_build_system": "Packages/User/anaconda.sublime-build",
 	"project": "pythonscratch.sublime-project",
 	"replace":
 	{
-		"height": 124.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -661,10 +234,6 @@
 		"last_filter": "",
 		"selected_items":
 		[
-			[
-				"",
-				"~/IDrive-Sync/pythonscratch/st3try4.py"
-			]
 		],
 		"width": 0.0
 	},
@@ -693,8 +262,8 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
-	"side_bar_width": 237.0,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
