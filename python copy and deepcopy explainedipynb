@@ -1,0 +1,178 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "miscolab_jan2020.ipynb",
+      "provenance": [],
+      "collapsed_sections": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "QbTpTphqkIVo",
+        "colab_type": "text"
+      },
+      "source": [
+        "In Python, variables do not hold values, but instead hold references to objects held somewhere in memory at the whim of the particular Python implementation.\n",
+        "\n",
+        "A list is similarly a collection of references to objects.\n",
+        "\n",
+        "When you have a variable that refers to a list, you have a reference to a list object which contains a sequence of references to other objects. Where the objects referenced are simple objects like an int, that's the end of the referencing but where the reference is to a more complex object like another list, or a tuple, or a set, etc, then again you have a sequence of references and this chain continues until the references are to simple objects.\n",
+        "\n",
+        "When you say, `a = 10` and then `b = 10` the two variables both reference exactly the same object in memory (Python pre-allocates memory for the integer values -5 to 256).\n",
+        "\n",
+        "When you say, `a = [1, 2, 3]` and `b = a` then the two variables refer to exactly the same list object in memory, and if you mutate that list, say appending an item, both of the variables will give you access to the same information (with the additional item) because they are looking at the same object. You can confirm this by iterating through the two lists and printing the id of each item using:\n",
+        "\n",
+        "    print(id(a), id(b))\n",
+        "    for num in a:\n",
+        "        print(id(num))\n",
+        "    for num in b:\n",
+        "        print(id(num)\n",
+        "\n",
+        "(`id` gives you the Python internal memory reference of an object.)\n",
+        "\n",
+        "If you use the `copy` method, `b = a.copy()` then a new list object will be created with the same references in the list as the original, and `b` will refer to that new list object. The references in the two lists will start out as the same because they both refer to simple objects using pre-allocated memory. If you mutate one of the lists, the other list shall not be changed (they will no longer hold references that are all the same).\n",
+        "\n",
+        "However, if the list was more complex, say `[1, 2, [3, 4,], 5]` and you mutated the inner (nested) list, this would show up in the two different list referenced by `a` and `b` because the two lists start out holding an identical sequence of references. If you do not change in the outer list the third reference (to the inner list) but mutate the list object referenced by the third reference, that change will appear in both lists referenced by `a` and `b` because the third reference in the two lists is to the same list object. Even if you insert some items at the beginning of the list referenced by `a` so the reference to another list is in a different position within the two outer lists, it will still be a reference to the same list object.\n",
+        "\n",
+        "The `copy` method does a shallow copy because it only makes a new object (copied references) of the first level, not any deeper (nested) levels.\n",
+        "\n",
+        "This is where the `deepcopy` method comes in, which creates new objects (with the same references) of all objects that hold references, however deep in that chain they are."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "NfDOeQBuiMdD",
+        "colab_type": "code",
+        "outputId": "c41ee06b-03e7-4d55-eeaf-7140c269ec2e",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 1000
+        }
+      },
+      "source": [
+        "import copy\n",
+        "\n",
+        "def list_compare(a_list, b_list):\n",
+        "    def out(list_):\n",
+        "        print(f'\\nList output, id = {id(list_)}')\n",
+        "        for item in list_:\n",
+        "            print(f'Value: {item}, id: {id(item)}')\n",
+        "        print()\n",
+        "\n",
+        "    def list_append(list_, item):\n",
+        "        \"\"\"append <item> to first list found in <list_>\"\"\"\n",
+        "        for element in list_:\n",
+        "            if isinstance(element, list):\n",
+        "                element.append(item)\n",
+        "                break\n",
+        "\n",
+        "    out(a_list)\n",
+        "    out(b_list)\n",
+        "    a_list.pop(0) # remove first thing from list\n",
+        "    b_list.append(20)  # add item to list\n",
+        "    list_append(a_list, 999)\n",
+        "    out(a_list)\n",
+        "    out(b_list)\n",
+        "\n",
+        "print('Using copy:')\n",
+        "original_list = [1,2,[5,6],4]\n",
+        "copy_list = original_list.copy()\n",
+        "list_compare(original_list, copy_list)\n",
+        "\n",
+        "print('Using deepcopy:')\n",
+        "original_list = [1,2,[5,6],4]\n",
+        "deep_copy_list = copy.deepcopy(original_list)\n",
+        "list_compare(original_list, deep_copy_list)"
+      ],
+      "execution_count": 0,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Using copy:\n",
+            "\n",
+            "List output, id = 139627937475848\n",
+            "Value: 1, id: 10914496\n",
+            "Value: 2, id: 10914528\n",
+            "Value: [5, 6], id: 139627937475208\n",
+            "Value: 4, id: 10914592\n",
+            "\n",
+            "\n",
+            "List output, id = 139627937475400\n",
+            "Value: 1, id: 10914496\n",
+            "Value: 2, id: 10914528\n",
+            "Value: [5, 6], id: 139627937475208\n",
+            "Value: 4, id: 10914592\n",
+            "\n",
+            "\n",
+            "List output, id = 139627937475848\n",
+            "Value: 2, id: 10914528\n",
+            "Value: [5, 6, 999], id: 139627937475208\n",
+            "Value: 4, id: 10914592\n",
+            "\n",
+            "\n",
+            "List output, id = 139627937475400\n",
+            "Value: 1, id: 10914496\n",
+            "Value: 2, id: 10914528\n",
+            "Value: [5, 6, 999], id: 139627937475208\n",
+            "Value: 4, id: 10914592\n",
+            "Value: 20, id: 10915104\n",
+            "\n",
+            "Using deepcopy:\n",
+            "\n",
+            "List output, id = 139627937475784\n",
+            "Value: 1, id: 10914496\n",
+            "Value: 2, id: 10914528\n",
+            "Value: [5, 6], id: 139627937475912\n",
+            "Value: 4, id: 10914592\n",
+            "\n",
+            "\n",
+            "List output, id = 139627937475720\n",
+            "Value: 1, id: 10914496\n",
+            "Value: 2, id: 10914528\n",
+            "Value: [5, 6], id: 139627937475592\n",
+            "Value: 4, id: 10914592\n",
+            "\n",
+            "\n",
+            "List output, id = 139627937475784\n",
+            "Value: 2, id: 10914528\n",
+            "Value: [5, 6, 999], id: 139627937475912\n",
+            "Value: 4, id: 10914592\n",
+            "\n",
+            "\n",
+            "List output, id = 139627937475720\n",
+            "Value: 1, id: 10914496\n",
+            "Value: 2, id: 10914528\n",
+            "Value: [5, 6], id: 139627937475592\n",
+            "Value: 4, id: 10914592\n",
+            "Value: 20, id: 10915104\n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "VHDuqg_WmONx",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": 0,
+      "outputs": []
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+2 pig oink
+3 duck quack
+4 horse neigh
+5 lamb baa
+6 chickens cluck
+7 dog woof
+8 cat meow
+9 cow moo
