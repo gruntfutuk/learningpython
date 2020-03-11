@@ -1,3 +1,7 @@
-#!/usr/bin/env python3.7
 import sys
-print(sys.version)
+
+def foo(*args):
+    args = [x.upper() for x in args]
+    return sorted(args)
+
+print(foo(*sys.argv[1:]))
