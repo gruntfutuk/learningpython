@@ -1,6 +1,3 @@
 {
-    "python.pythonPath": "/Users/stuartmoore/opt/anaconda3/bin/python",
-    "python.autoComplete.addBrackets": true,
-    "python.formatting.provider": "black",
-    "editor.detectIndentation": false
+    "python.pythonPath": "/usr/local/bin/python3"
 }
