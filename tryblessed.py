@@ -1,5 +1,4 @@
-from blessed import Terminal
+nums = 5, 2, 5, 2, 2
 
-term = Terminal()
-with term.location(0, term.height - 1):
-    print('This is ' + term.underline('underlined') + '!')
+for num in nums:
+    print('x' * num)
