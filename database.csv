@@ -1,0 +1,6 @@
+Run,Sample,Source,Rate,
+DFT,G01024-14,A,High
+DFT,U04424-15,B,Low
+TFF,T64673-18,A,Low
+RRT,I01324-14,A,High
+RRT,J01624-14,A,High
