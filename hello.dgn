@@ -1,0 +1,5 @@
+select "std"
+	
+showln "Enter your name" 
+a = readln()
+show "Hello " + a
