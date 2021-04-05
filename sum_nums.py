@@ -15,9 +15,23 @@ def sum_nums(*args):
     return results
 
 
-print(sum_nums(1, 2, 3))
-print(sum_nums(1, 2, 3, [4, 5]))
-print(sum_nums((1, 2, 3), (10, 20), [100, 200]))
-print(sum_nums([5], 1, 2, 3))
-print(sum_nums(1, 2, 3, [4, 5], 8))
-print(sum_nums((1000, 2000), 5, (10, 20), 6, [100, 200], 7))
+if __name__ == "__main__":
+
+    tests = [
+        ((1, 2, 3), [6]),
+        ((1, 2, 3, [4, 5]), [6, 9]),
+        (((1, 2, 3), (10, 20), [100, 200]), [6, 30, 300]),
+        (([5], 1, 2, 3), [5, 6]),
+        ((1, 2, 3, [4, 5], 8), [14, 9]),
+        (((1000, 2000), 5, (10, 20), 6, [100, 200], 7), [3000, 18, 30, 300]),
+    ]
+
+    for test, expected in tests:
+        try:
+            assert (result := sum_nums(*test)) == expected
+        except AssertionError:
+            print(f"***> ERROR\n\t{test},"
+                  f"\n\texpected: {expected},\n\t"
+                  f"returned: {result}")
+        else:
+            print(f"Correct for {test},\n\treturned: {expected}.")
