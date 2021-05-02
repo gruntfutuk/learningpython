@@ -1,0 +1,11 @@
+CS152Introduction to Python Programming21
+CS369Operating Systems Administration8
+CS352Data Structures19
+CS208Discrete Mathematics124
+CS319Computer Architecture14
+MA221Calculus and Analytical Geometry for Majors I12
+MA311Linear Algebra7
+MA150Precalculus Mathematics27
+CS335Introduction to Cybersecurity20
+IS361Data Management Systems22
+MG315Advanced Business Statistics6

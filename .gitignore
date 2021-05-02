@@ -1,4 +1,4 @@
-
+kivy
 oneliners/env/bin/activate
 __pycache__/
 .idea/
@@ -460,3 +460,4 @@ venv/lib/python3.8/site-packages/setuptools-41.2.0.dist-info/RECORD
 venv/lib/python3.8/site-packages/setuptools-41.2.0.dist-info/top_level.txt
 venv/lib/python3.8/site-packages/setuptools-41.2.0.dist-info/WHEEL
 venv/lib/python3.8/site-packages/setuptools-41.2.0.dist-info/zip-safe
+kivy/main.py
